@@ -246,7 +246,8 @@ class _Handler {
 /// Takes a `Stream` of `Events` as input
 /// and transforms them into a `Stream` of `States` as output.
 /// {@endtemplate}
-abstract class Bloc<Event, State> extends BlocBase<State> {
+abstract class Bloc<Event extends Object, State extends Object>
+    extends BlocBase<State> {
   /// {@macro bloc}
   Bloc(State initialState) : super(initialState);
 
@@ -489,7 +490,7 @@ abstract class Bloc<Event, State> extends BlocBase<State> {
 /// ```
 ///
 /// {@endtemplate}
-abstract class Cubit<State> extends BlocBase<State> {
+abstract class Cubit<State extends Object> extends BlocBase<State> {
   /// {@macro cubit}
   Cubit(State initialState) : super(initialState);
 }
@@ -498,7 +499,7 @@ abstract class Cubit<State> extends BlocBase<State> {
 /// An interface for the core functionality implemented by
 /// both [Bloc] and [Cubit].
 /// {@endtemplate}
-abstract class BlocBase<State> {
+abstract class BlocBase<State extends Object> {
   /// {@macro bloc_stream}
   BlocBase(this._state) {
     // ignore: invalid_use_of_protected_member

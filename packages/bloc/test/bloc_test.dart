@@ -10,7 +10,7 @@ Future<void> tick() => Future<void>.delayed(Duration.zero);
 
 class MockBlocObserver extends Mock implements BlocObserver {}
 
-class FakeBlocBase<S> extends Fake implements BlocBase<S> {}
+class FakeBlocBase<S extends Object> extends Fake implements BlocBase<S> {}
 
 void main() {
   group('Bloc Tests', () {
@@ -60,7 +60,7 @@ void main() {
             // ignore: invalid_use_of_protected_member
             () => observer.onTransition(
               simpleBloc,
-              const Transition<dynamic, String>(
+              const Transition<String, String>(
                 currentState: '',
                 event: 'event',
                 nextState: 'data',
@@ -93,7 +93,7 @@ void main() {
             // ignore: invalid_use_of_protected_member
             () => observer.onTransition(
               simpleBloc,
-              const Transition<dynamic, String>(
+              const Transition<String, String>(
                 currentState: '',
                 event: 'event1',
                 nextState: 'data',
@@ -465,7 +465,7 @@ void main() {
       late MockBlocObserver observer;
 
       setUpAll(() {
-        registerFallbackValue<BlocBase<dynamic>>(FakeBlocBase<dynamic>());
+        registerFallbackValue<BlocBase<Object>>(FakeBlocBase<Object>());
         registerFallbackValue<StackTrace>(StackTrace.empty);
       });
 
@@ -1305,6 +1305,12 @@ void main() {
             ),
           ),
         );
+      });
+    });
+
+    group('GenericBloc', () {
+      test('can be extended and instantiated', () {
+        expect(() => GenericBloc(), returnsNormally);
       });
     });
 
